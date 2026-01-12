@@ -26,14 +26,26 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Relations
-  posts Post[]
-  comments Comment[]
-  likes Like[]
+  // Relations 
+  posts Post[] //  one to many
+  comments Comment[] //  one to many
+  likes Like[] // one to many
 
   followers Follows[] @relation("following") // users who follow this user 
   following Follows[] @relation("follower") // users this user follows
 
   notifications Notification[] @relation("userNotifications") // notifications received
   notificationsCreated Notification[] @relation("notificationCreator") // notification triggered
+}
+
+model Post{
+  id String @id @default(cuid())
+  authorId String 
+  content String?
+  image String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  author User @relation(fields:[authorId],references:[id])
 }
