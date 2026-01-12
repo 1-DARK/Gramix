@@ -25,4 +25,15 @@ model User {
   website String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  // Relations
+  posts Post[]
+  comments Comment[]
+  likes Like[]
+
+  followers Follows[] @relation("following") // users who follow this user 
+  following Follows[] @relation("follower") // users this user follows
+
+  notifications Notification[] @relation("userNotifications") // notifications received
+  notificationsCreated Notification[] @relation("notificationCreator") // notification triggered
 }
