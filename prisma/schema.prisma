@@ -26,10 +26,10 @@ model User {
   createdAt DateTime @default(now()) // member since 2020
   updatedAt DateTime @updatedAt
 
-  // Relations: 
-  posts Post[] // One-to-many
-  comments Comment[] // One-to-many
-  likes Like[] // One-to-many
+  // Relations One-to-many
+  posts Post[] 
+  comments Comment[] 
+  likes Like[] 
 
   followers Follows[] @relation("following") // users who follow this user
   following Follows[] @relation("follower") // users this user follows
