@@ -23,10 +23,10 @@ model User {
   image String?
   location String?
   website String?
-  createdAt DateTime @default(now())
+  createdAt DateTime @default(now()) // member since 2020
   updatedAt DateTime @updatedAt
 
-  // Relations
+  // Relations: 
   posts Post[] // One-to-many
   comments Comment[] // One-to-many
   likes Like[] // One-to-many
