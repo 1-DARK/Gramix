@@ -7,6 +7,7 @@ import { Textarea } from "./ui/textarea";
 import { Button } from "./ui/button";
 import { ImageIcon, Loader2Icon, SendIcon } from "lucide-react";
 import { createPost } from "@/actions/post.action";
+import toast from "react-hot-toast";
 
 function CreatePost() {
   const { user } = useUser();
@@ -24,8 +25,11 @@ function CreatePost() {
         setContent("");
         setImageUrl("");
         setShowImageUpload(false);
+        toast.success("Post created successfully");
       }
     } catch (error) {
+      console.log("Failed to create post", error);
+      toast.error("Failed to create post");
     } finally {
       setIsPosting(false);
     }
@@ -39,7 +43,7 @@ function CreatePost() {
               <AvatarImage src={user?.imageUrl || "/avatar.png"} />
             </Avatar>
             <Textarea
-              placeholder="  What's on your mind?"
+              placeholder="What's on your mind?"
               className="min-h-25 resize-none border-none focus-visible:ring-0 p-0 text-base"
               value={content}
               onChange={(e) => setContent(e.target.value)}
