@@ -2,6 +2,7 @@ import { getRandomUsers } from "@/actions/user.action";
 import { Card, CardHeader, CardTitle } from "./ui/card";
 import Link from "next/link";
 import { Avatar, AvatarImage } from "./ui/avatar";
+import FollowButton from "./FollowButton";
 
 async function WhoToFollow() {
   const users = await getRandomUsers();
@@ -10,21 +11,21 @@ async function WhoToFollow() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Hello</CardTitle>
+        <CardTitle>Who to Follow</CardTitle>
       </CardHeader>
       <div className="space-y-4">
         {users.map((user) => (
           <div
             key={user.id}
-            className="flex gap-2 items-center justify-between "
+            className="flex gap-4 items-center justify-between "
           >
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 pl-4.5">
               <Link href={`/profile/${user.username}`}>
                 <Avatar>
                   <AvatarImage src={user.image ?? "/avatar.png"} />
                 </Avatar>
               </Link>
-              <div className="text-xs">
+              <div className="text-sm">
                 <Link
                   href={`/profile/${user.username}`}
                   className="font-medium cursor-pointer"
@@ -37,7 +38,7 @@ async function WhoToFollow() {
                 </p>
               </div>
             </div>
-            {/*  <FollowButton userId={user.id} /> */}
+            <FollowButton userId={user.id} />
           </div>
         ))}
       </div>
