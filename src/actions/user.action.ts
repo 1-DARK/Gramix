@@ -73,6 +73,23 @@ export async function getRandomUsers() {
           { NOT: { followers: { some: { followerId: userId } } } }, //  at least one follower record where I am the follower
         ],
       },
+      select: {
+        id: true,
+        name: true,
+        username: true,
+        image: true,
+        _count: {
+          select: {
+            followers: true,
+          },
+        },
+      },
+      take: 3, // Take only three users
     });
-  } catch (error) {}
+
+    return randomUsers;
+  } catch (error) {
+    console.log("Error in randomUsers", error);
+    return [];
+  }
 }
