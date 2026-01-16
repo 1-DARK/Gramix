@@ -93,3 +93,18 @@ export async function getRandomUsers() {
     return [];
   }
 }
+
+export async function toggleFollow(targetUserId: string) {
+  try {
+    const userId = await getDbUserId();
+    if (userId === targetUserId) throw new Error("You cannot follow yourself ");
+    const existingFollow = await prisma.follows.findUnique({
+      where: {
+        followerId_followingId: {
+          followerId: userId,
+          followingId: targetUserId,
+        },
+      },
+    });
+  } catch (error) {}
+}
