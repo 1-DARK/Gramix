@@ -106,5 +106,36 @@ export async function toggleFollow(targetUserId: string) {
         },
       },
     });
-  } catch (error) {}
+    if (existingFollow) {
+      await prisma.follows.delete({
+        where: {
+          followerId_followingId: {
+            followerId: userId,
+            followingId: targetUserId,
+          },
+        },
+      });
+    } else {
+      await prisma.$transaction([
+        // both success or both fail
+        prisma.follows.create({
+          data: {
+            followerId: userId,
+            followingId: targetUserId,
+          },
+        }),
+        prisma.notification.create({
+          data: {
+            type: "FOLLOW",
+            userId: targetUserId,
+            creatorId: userId,
+          },
+        }),
+      ]);
+    }
+    return { success: true };
+  } catch (error) {
+    console.log("Error in toggleFollow", error);
+    return { success: false, error: "Error in toggleFollow" };
+  }
 }

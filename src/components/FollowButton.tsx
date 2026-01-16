@@ -26,7 +26,7 @@ function FollowButton({ userId }: { userId: string }) {
       variant={"secondary"}
       onClick={handleFollow}
       disabled={isLoading}
-      className="w-20"
+      className="w-20 mr-3"
     >
       {isLoading ? <Loader2Icon className="w-4 h-4 animate-spin" /> : "Follow"}
     </Button>
