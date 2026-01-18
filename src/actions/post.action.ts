@@ -136,6 +136,7 @@ export async function toggleLike(postId: string) {
     return { success: false, error: "Failed to toggle like" };
   }
 }
+
 export async function createComment(postId: string, content: string) {
   try {
     const userId = await getDbUserId();
