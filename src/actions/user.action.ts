@@ -41,7 +41,6 @@ export async function getUserByClerkId(clerkId: string) {
       clerkId,
     },
     include: {
-      // fetch the data of another model also
       _count: {
         select: {
           followers: true,
