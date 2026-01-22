@@ -1,0 +1,6 @@
+function ProfilePage({ ...params }: { params: { username: string } }) {
+  console.log(params);
+  return <h1>hello</h1>;
+}
+
+export default ProfilePage;
