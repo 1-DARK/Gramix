@@ -5,7 +5,10 @@ import {
   getUserPosts,
   updateProfile,
 } from "@/actions/profile.action";
+import { toggleFollow } from "@/actions/user.action";
 import { useUser } from "@clerk/nextjs";
+import { format } from "date-fns";
+
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -48,6 +51,26 @@ function ProfilePageClient({
       toast.success("Profile updated successfully");
     }
   };
+
+  const handleFollow = async () => {
+    if (!currentUser) return;
+
+    try {
+      setIsUpdatingFollow(true);
+      await toggleFollow(user.id);
+      setIsFollowing(!isFollowing);
+    } catch (error) {
+      toast.error("Failed to update follow status");
+    } finally {
+      setIsUpdatingFollow(false);
+    }
+  };
+
+  const isOwnProfile =
+    currentUser?.username === user.username ||
+    currentUser?.emailAddresses[0].emailAddress.split("@")[0] === user.username;
+
+  const formattedDate = format(new Date(user.createdAt), "MMMM yyyy");
   return <div></div>;
 }
 
